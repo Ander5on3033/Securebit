@@ -1,0 +1,34 @@
+erDiagram
+    USUARIOS ||--o{ CREDENCIAIS : "possui"
+    USUARIOS ||--o{ LOGS_AUDITORIA : "gera"
+    CREDENCIAIS ||--o{ CREDENCIAL_TAGS : "tem"
+    TAGS ||--o{ CREDENCIAL_TAGS : "classifica"
+
+    USUARIOS {
+        int id_usuario PK
+        string email
+        string senha_mestra_hash "Hash da Master Password"
+        boolean biometria_ativa
+    }
+
+    CREDENCIAIS {
+        int id_credencial PK
+        int id_usuario FK
+        string titulo_servico
+        string login_usuario
+        string senha_encriptada "Dados cifrados"
+        text anotacoes
+        datetime data_criacao
+    }
+
+    TAGS {
+        int id_tag PK
+        string nome_tag
+    }
+
+    LOGS_AUDITORIA {
+        int id_log PK
+        int id_usuario FK
+        string acao_realizada
+        datetime data_hora
+    }
